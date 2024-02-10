@@ -30,7 +30,7 @@
         ""
       ],
       "api/*": [
-        "./src/apss/api/*"
+        "./src/apps/api/*"
       ],
       "components/*": [
         "./src/apps/components/*"

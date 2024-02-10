@@ -1,5 +1,5 @@
 import { Library } from "interfaces/ebook.interface";
 
-export interface Root {
+export interface EbookPrincipal {
   library: Library[];
 }
