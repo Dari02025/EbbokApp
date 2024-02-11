@@ -1,33 +1,18 @@
 import Book from "components/Book.component";
+import { Book as BookInterface } from "../interfaces/ebook.interface";
 
-const books = [
-  {
-    title: "Book 1",
-    imageSrc:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1566425108i/33.jpg",
-    description: "Descripción del libro 1.",
-    totalPages: 200,
-  },
-  {
-    title: "Book 2",
-    imageSrc:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1566425108i/33.jpg",
-    description: "Descripción del libro 2.",
-    totalPages: 100,
-  },
-  // Agregar más libros aquí...
-];
-
-const BookList = () => {
+const BookList = ({ books }: { books: BookInterface[] }) => {
   return (
     <div className="flex flex-wrap -mx-4">
       {books.map((book, index) => (
         <Book
           key={index}
           title={book.title}
-          imageSrc={book.imageSrc}
-          description={book.description}
-          totalPages={book.totalPages}
+          imageSrc={book.cover}
+          description={book.synopsis}
+          genere={book.genre}
+          id={book.ISBN}
+          favorite={book?.isFavorite}
         />
       ))}
     </div>

@@ -1,12 +1,47 @@
 import { useFetchEbooks } from "hooks/useEbooks";
 import BookList from "components/ListBook.component";
 import PageContainerSkeleton from "components/PageContainerSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FavoritesList from "components/FavoriteList";
-import Filter from "../components/Filter.component";
+import Filter from "components/Filter.component";
+import { filterData, transformData } from "utils/mapper.utils";
+import { Book } from "interfaces/ebook.interface";
+import { Author } from "interfaces/author.interface";
+import { useFavoriteEbookStore, useFilterEbook } from "contexts/contextEbooks";
 
 const MainView = () => {
+  const { favoriteEbookIds } = useFavoriteEbookStore();
   const { data, isLoading } = useFetchEbooks();
+  const [books, setBooks] = useState<Book[]>([]);
+  const [pages, setPages] = useState<number[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const { filter } = useFilterEbook();
+
+  useEffect(() => {
+    if (!isLoading && data && data.default && data.default.library) {
+      const { ebooks, authors, pag } = transformData(
+        data.default.library,
+        favoriteEbookIds,
+      );
+      setBooks(ebooks);
+      setAuthors(authors);
+      setPages(pag);
+      console.log(ebooks);
+    }
+  }, [isLoading, data]);
+  useEffect(() => {
+    if (filter) {
+      console.log(
+        "---------[route => /Users/cristiancuray/MEGAsync/proyectos/personal/challens/ebooks/src/apps/views/main.view.tsx ]---------",
+      );
+      console.log(filter);
+      console.log(
+        "---------end => time : (02/11/24 - 19:56 Sunday)  🦏---------",
+      );
+
+      setBooks(filterData(books, filter));
+    }
+  }, [filter]);
   const [favorites, setFavorites] = useState([
     {
       id: 1,
@@ -56,30 +91,19 @@ const MainView = () => {
       date: "2022-02-22",
       description: "Description 1",
     },
-    {
-      id: 7,
-      name: "Favorite 7",
-      date: "2022-02-21",
-      description: "Description 1",
-    },
   ]);
 
   if (isLoading) return <PageContainerSkeleton />;
-
-  console.log(data);
 
   const removeFavorite = (id: number) => {
     setFavorites((prevFavorites) =>
       prevFavorites.filter((favorite) => favorite.id !== id),
     );
   };
-  const handleSearch = (query: string) => {
-    console.log("Búsqueda realizada:", query);
-    // Aquí podrías realizar alguna acción, como filtrar los datos en base a la búsqueda
-  };
+
   return (
     <>
-      <Filter onSearch={handleSearch} />{" "}
+      <Filter totalPages={pages} authors={authors} />{" "}
       <div className="flex flex-col lg:flex-row mt-8  ">
         <div className="lg:w-48 p-4 bg-gray-200 overflow-y-auto !important lg:block hidden">
           {" "}
@@ -89,9 +113,9 @@ const MainView = () => {
             onRemoveFavorite={removeFavorite}
           />
         </div>
-        <div className="flex-1 p-4 bg-gray-300 overflow-y-auto !important">
+        <div className="flex-1 p-4  overflow-y-auto !important">
           Columna flexible
-          <BookList />
+          <BookList books={books} />
         </div>
       </div>
     </>

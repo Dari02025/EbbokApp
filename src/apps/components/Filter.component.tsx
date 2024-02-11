@@ -1,20 +1,30 @@
 import React from "react";
+import { Author } from "interfaces/author.interface";
+import { useFilterEbook } from "contexts/contextEbooks";
 
 interface FilterProps {
-  authors?: string[];
+  authors?: Author[];
   totalPages?: number[];
-  onSearch: (query: string) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({
-  authors = ["Author 1", "Author 2", "Author 3"],
-  totalPages = [10, 20, 30, 40, 50],
-  onSearch,
-}) => {
+const Filter: React.FC<FilterProps> = ({ authors = [], totalPages = [] }) => {
+  const { filter, setFilter } = useFilterEbook();
+  const handleAuthorChange = (author: string) => {
+    setFilter({ author });
+  };
+
+  const handlePagesChange = (page: string) => {
+    setFilter({ pages: +page });
+  };
+
+  const handleSearchChange = (query: string) => {
+    setFilter({ search: query || "" });
+  };
+
   return (
     <div className="fixed top-0 left-0 w-full bg-gray-100 p-4 rounded-lg z-10 mb-4">
       <div className="lg:flex lg:justify-between">
-        {/* Buscador */}
+        {/* Search */}
         <div className="lg:w-4/5 mb-4 lg:mb-0">
           <div className="relative">
             <svg
@@ -33,22 +43,31 @@ const Filter: React.FC<FilterProps> = ({
               type="text"
               placeholder="Search"
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-              onChange={(e) => onSearch(e.target.value)}
+              value={filter?.search ?? ""}
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
           </div>
         </div>
 
-        {/* Selectores de filtros */}
+        {/* Select filters  */}
         <div className="lg:w-2/5 flex justify-end space-x-2">
-          <select className="border border-gray-300 rounded-md p-2">
+          <select
+            className="border border-gray-300 rounded-md p-2"
+            onChange={(e) => handleAuthorChange(e.target.value)}
+            value={filter?.author || ""}
+          >
             <option value="">All Authors</option>
             {authors.map((author, index) => (
-              <option key={index} value={author}>
-                {author}
+              <option key={index} value={author.name}>
+                {author.name}
               </option>
             ))}
           </select>
-          <select className="border border-gray-300 rounded-md p-2">
+          <select
+            className="border border-gray-300 rounded-md p-2"
+            onChange={(e) => handlePagesChange(e.target.value)}
+            value={filter?.pages || ""}
+          >
             <option value="">All Pages</option>
             {totalPages.map((page, index) => (
               <option key={index} value={page}>
@@ -57,10 +76,10 @@ const Filter: React.FC<FilterProps> = ({
             ))}
           </select>
 
-          {/* Selector de favoritos visible solo en dispositivos móviles */}
+          {/* Select of favorites visible only on mobile devices*/}
           <select className="border border-gray-300 rounded-md p-2 block sm:hidden">
             <option value="">Favorites</option>
-            {/* Opciones de favoritos */}
+            {/* Favorite options */}
           </select>
         </div>
       </div>

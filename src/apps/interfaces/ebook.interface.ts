@@ -12,5 +12,26 @@ export interface Book {
   synopsis: string;
   year: number;
   ISBN: string;
+  isFavorite?: boolean;
   author: Author;
 }
+export interface EbookFavorite {
+  id: string;
+  date: string;
+}
+export type favoriteEbookState = {
+  favoriteEbookIds: EbookFavorite[];
+  addFavoriteEbook: (ebookId: string) => void;
+  removeFavoriteEbook: (ebookId: string) => void;
+};
+
+export interface filterEbook {
+  author?: string;
+  search?: string;
+  pages?: number;
+}
+
+export type ebookFilterState = {
+  filter?: filterEbook;
+  setFilter: (filter?: filterEbook) => void;
+};
