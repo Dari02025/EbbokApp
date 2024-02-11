@@ -65,14 +65,15 @@ const Book = ({
               <h4 className="text-md font-semibold text-white text-center mb-2">
                 {title}
               </h4>
+              <hr className="pb-2" />
               <button
-                className="block mx-auto px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600"
+                className=" mx-auto px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600"
                 onClick={toggleDescription}
               >
-                <MdOutlineRemoveRedEye />
+                <MdOutlineRemoveRedEye className="text-xl" />
               </button>
               <button
-                className="absolute top-0 right-0 text-yellow-500 hover:text-red-500 focus:outline-none"
+                className="float-right  text-yellow-500 hover:text-red-500 focus:outline-none"
                 onClick={toggleFavorite}
               >
                 <FavoriteIcon isFavorite={isFavorite} />
