@@ -1,7 +1,8 @@
 import React from "react";
 import { Author } from "interfaces/author.interface";
 import { useFilterEbook } from "contexts/contextEbooks";
-
+import { MdClear } from "react-icons/md";
+import { MdSavedSearch } from "react-icons/md";
 interface FilterProps {
   authors?: Author[];
   totalPages?: number[];
@@ -27,18 +28,16 @@ const Filter: React.FC<FilterProps> = ({ authors = [], totalPages = [] }) => {
         {/* Search */}
         <div className="lg:w-4/5 mb-4 lg:mb-0">
           <div className="relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 1a9 9 0 110 18A9 9 0 0110 1zm-1 9a1 1 0 011-1h4a1 1 0 110 2h-4a1 1 0 01-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <i className="h-5 w-5 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2">
+              {filter?.search ? (
+                <MdClear
+                  onClick={() => handleSearchChange("")}
+                  className="cursor-pointer text-xl"
+                />
+              ) : (
+                <MdSavedSearch className="text-xl " />
+              )}
+            </i>
             <input
               type="text"
               placeholder="Search"

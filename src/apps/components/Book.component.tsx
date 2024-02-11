@@ -22,6 +22,8 @@ const Book = ({
   const { addFavoriteEbook, removeFavoriteEbook } = useFavoriteEbookStore();
   const [showDescription, setShowDescription] = useState(false);
   const [isFavorite, setIsFavorite] = useState(favorite ?? false);
+
+  // Solo para probar el skeleton no es neceario en el 90% de los casos
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {

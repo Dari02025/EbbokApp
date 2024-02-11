@@ -13,12 +13,14 @@ export const useFavoriteEbookStore = create(
     (set) => ({
       /* The favoriteEbookIds array stores the ids of the favorite ebooks. */
       favoriteEbookIds: [],
+      isRemoved: false,
       addFavoriteEbook: (ebookId: string) =>
         set((state) => ({
           favoriteEbookIds: [
             ...state.favoriteEbookIds,
             { id: ebookId, date: dayjs().format("YYYY-MM-DD").toString() },
           ],
+          isRemoved: false,
         })),
       /* The removeFavoriteEbook function removes the ebook from the favoriteEbookIds array. */
       removeFavoriteEbook: (ebookId: string) =>
@@ -26,6 +28,7 @@ export const useFavoriteEbookStore = create(
           favoriteEbookIds: state.favoriteEbookIds.filter(
             (book) => book.id !== ebookId,
           ),
+          isRemoved: true,
         })),
     }),
     {

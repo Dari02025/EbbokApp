@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-
-interface Favorite {
-  id: number;
-  name: string;
-  date: string;
-  description: string;
-}
+import { useFavoriteEbookStore, useFilterEbook } from "contexts/contextEbooks";
+import { Book } from "interfaces/ebook.interface";
+import ProfileImage from "components/ProfileNameToImg.component";
+import { MdDeleteForever } from "react-icons/md";
 
 interface FavoritesListProps {
-  favorites: Favorite[];
-  onRemoveFavorite: (id: number) => void;
+  favorites: Book[];
 }
 
-const FavoritesList: React.FC<FavoritesListProps> = ({
-  favorites,
-  onRemoveFavorite,
-}) => {
+const FavoritesList: React.FC<FavoritesListProps> = ({ favorites }) => {
+  const { removeFavoriteEbook, favoriteEbookIds } = useFavoriteEbookStore();
+  const { setFilter } = useFilterEbook();
   const [searchTerm, setSearchTerm] = useState("");
-  const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
 
   const filteredFavorites = favorites.filter((favorite) =>
-    favorite.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    favorite.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
+  const handleDateFavorite = (id: string) => {
+    return favoriteEbookIds.find((favorite) => favorite.id === id)?.date;
+  };
 
   return (
     <div className="w-200 max-w-200 h-full h-screen">
@@ -37,49 +36,46 @@ const FavoritesList: React.FC<FavoritesListProps> = ({
         <p className="text-gray-500 text-center">No favorites found</p>
       ) : (
         <ul className="divide-y divide-gray-300">
-          {filteredFavorites.map((favorite) => (
-            <li
-              key={favorite.id}
-              className="py-4 flex items-start space-x-4 relative"
-            >
-              <div className="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full relative">
-                <img
-                  src="/placeholder.jpg"
-                  alt="Profile"
-                  className="w-full h-full rounded-full"
-                  title={hoveredItemId === favorite.id ? "" : undefined}
-                  onMouseEnter={() => setHoveredItemId(favorite.id)}
-                  onMouseLeave={() => setHoveredItemId(null)}
-                />
-                {hoveredItemId === favorite.id && (
-                  <div className="absolute top-0 left-full bg-gray-800 text-white text-sm rounded p-2 shadow-md">
-                    {favorite.description}
-                  </div>
-                )}
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">{favorite.name}</p>
-                <p className="text-xs text-gray-500">{favorite.date}</p>
-              </div>
-              <button
-                onClick={() => onRemoveFavorite(favorite.id)}
-                className="text-red-500 hover:text-red-700 focus:outline-none"
+          {filteredFavorites.map((favorite) =>
+            favorite.isFavorite ? (
+              <li
+                key={favorite.ISBN}
+                className="py-4 flex items-start space-x-4 relative"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                <div className="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full relative">
+                  <div
+                    onMouseEnter={() => setHoveredItemId(favorite.ISBN)}
+                    onMouseLeave={() => setHoveredItemId(null)}
+                  >
+                    <ProfileImage name={favorite.title} />
+                  </div>
+
+                  {hoveredItemId === favorite.ISBN && (
+                    <div className="absolute top-0 left-full bg-gray-800 text-white text-xs rounded p-2 shadow-md">
+                      {favorite?.author?.name}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <p
+                    className="text-sm font-small cursor-pointer"
+                    onClick={() => setFilter({ search: favorite["title"] })}
+                  >
+                    {favorite.title}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {handleDateFavorite(favorite.ISBN)}
+                  </p>
+                </div>
+                <button
+                  onClick={() => removeFavoriteEbook(favorite.ISBN)}
+                  className="text-red-500 hover:text-red-700 focus:outline-none"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M6 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zM4 5a3 3 0 013-3h6a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V5z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </li>
-          ))}
+                  <MdDeleteForever className="text-xl" />
+                </button>
+              </li>
+            ) : null,
+          )}
         </ul>
       )}
     </div>

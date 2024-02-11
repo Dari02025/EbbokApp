@@ -20,6 +20,7 @@ export interface EbookFavorite {
   date: string;
 }
 export type favoriteEbookState = {
+  isRemoved: boolean;
   favoriteEbookIds: EbookFavorite[];
   addFavoriteEbook: (ebookId: string) => void;
   removeFavoriteEbook: (ebookId: string) => void;
