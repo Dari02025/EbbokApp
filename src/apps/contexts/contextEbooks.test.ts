@@ -3,7 +3,7 @@ import { useFavoriteEbookStore } from "./contextEbooks";
 
 describe("Favorite Ebook Store", () => {
   afterEach(() => {
-    useFavoriteEbookStore.setState((state) => ({
+    useFavoriteEbookStore.setState(() => ({
       favoriteEbookIds: [],
       isRemoved: false,
     }));

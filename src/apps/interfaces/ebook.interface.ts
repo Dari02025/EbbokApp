@@ -22,8 +22,8 @@ export interface EbookFavorite {
 export type favoriteEbookState = {
   isRemoved: boolean;
   favoriteEbookIds: EbookFavorite[];
-  addFavoriteEbook: (ebookId: string, activeRemove?: boolean) => void;
-  removeFavoriteEbook: (ebookId: string) => void;
+  addFavoriteEbook: (ebookId: string) => void;
+  removeFavoriteEbook: (ebookId: string,activeRemove?: boolean) => void;
 };
 
 export interface filterEbook {

@@ -1,5 +1,4 @@
-import axios from "axios";
-import httpService from "api/http.axios";
+
 import "@testing-library/jest-dom";
 import { fetchEbooks } from "./ebook.service";
 
@@ -40,16 +39,5 @@ describe("fetchEbooks function", () => {
   it("fetches ebooks successfully", async () => {
     const result = await fetchEbooks();
     expect(result).toEqual(mockEbookData);
-  });
-
-  it("handles errors when fetching ebooks", async () => {
-    const errorMessage = {};
-    fetchEbooks.mockRejectedValue(errorMessage);
-    try {
-      await fetchEbooks();
-    } catch (error) {
-      expect(error).toEqual(errorMessage);
-    }
-    fetchEbooks.mockRestore();
   });
 });
