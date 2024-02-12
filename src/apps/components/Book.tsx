@@ -39,7 +39,7 @@ const Book = ({
   const toggleFavorite = () => {
     if (isFavorite) {
       setIsFavorite(false);
-      removeFavoriteEbook(id);
+      removeFavoriteEbook(id, true);
     } else {
       setIsFavorite(true);
       addFavoriteEbook(id);

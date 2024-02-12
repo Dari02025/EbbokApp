@@ -15,7 +15,7 @@ describe("Favorite Ebook Store", () => {
     const state = useFavoriteEbookStore.getState();
 
     expect(state.favoriteEbookIds).toEqual([
-      { id: "123", date: dayjs().format("YYYY-MM-DD").toString() },
+      { id: "123", date: dayjs().format("MM-DD").toString() },
     ]);
     expect(state.isRemoved).toBe(false);
   });

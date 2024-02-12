@@ -24,6 +24,12 @@ npm run dev
 npm run build
 ```
 
+### Correr los test unitarios
+
+```bash
+npm run test
+```
+
 ### Arbol de directorios
 
 - `src`
@@ -32,14 +38,14 @@ npm run build
       - **Book.service.ts**: Archivo que contiene la lógica para interactuar con el servicio de libros.
     - `components`
       - `icons`
-        - **Book.component.tsx**: Componente de icono que representa un libro.
+        - **Book.tsx**: Componente de icono que representa un libro.
         - **BookDetail.tsx**: Componente de detalle de libro.
         - **BookSkeleton.tsx**: Componente de esqueleto de libro para mostrar mientras se carga.
         - **FavoriteList.tsx**: Componente de lista de favoritos.
-        - **Filter.component.tsx**: Componente de filtro.
-        - **ListBook.component.tsx**: Componente de lista de libros.
+        - **Filter.tsx**: Componente de filtro.
+        - **ListBook.tsx**: Componente de lista de libros.
         - **PageContainerSkeleton.tsx**: Componente de esqueleto de contenedor de página.
-        - **ProfileNameToImg.component.tsx**: Componente que convierte el nombre de perfil en una imagen.
+        - **ProfileNameToImg.tsx**: Componente que convierte el nombre de perfil en una imagen.
     - `contexts`
       - **contextEbooks.ts**: Archivo que define el contexto relacionado con los ebooks.
     - `hooks`

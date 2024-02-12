@@ -4,7 +4,7 @@ import {
   Library,
   filterEbook,
 } from "interfaces/ebook.interface";
-import { Author } from "../interfaces/author.interface";
+import { Author } from "interfaces/author.interface";
 
 export const transformData = (data: Library[], fv?: EbookFavorite[]) => {
   const ebooks: Book[] = [];

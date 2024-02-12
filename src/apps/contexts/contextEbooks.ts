@@ -18,17 +18,17 @@ export const useFavoriteEbookStore = create(
         set((state) => ({
           favoriteEbookIds: [
             ...state.favoriteEbookIds,
-            { id: ebookId, date: dayjs().format("YYYY-MM-DD").toString() },
+            { id: ebookId, date: dayjs().format("MM-DD").toString() },
           ],
           isRemoved: false,
         })),
       /* The removeFavoriteEbook function removes the ebook from the favoriteEbookIds array. */
-      removeFavoriteEbook: (ebookId: string) =>
+      removeFavoriteEbook: (ebookId: string, activeRemove: boolean = false) =>
         set((state) => ({
           favoriteEbookIds: state.favoriteEbookIds.filter(
             (book) => book.id !== ebookId,
           ),
-          isRemoved: true,
+          isRemoved: !activeRemove ? true : false,
         })),
     }),
     {

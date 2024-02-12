@@ -55,7 +55,6 @@ const MainView = () => {
           <FavoritesList favorites={books} />
         </aside>
         <section className="flex-1 p-4  overflow-y-auto !important">
-          Columna flexible
           <BookList books={booksList} key={key} />
         </section>
       </main>
