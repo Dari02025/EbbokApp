@@ -1,5 +1,5 @@
-import Book from "components/Book.component";
-import { Book as BookInterface } from "../interfaces/ebook.interface";
+import Book from "components/Book";
+import { Book as BookInterface } from "interfaces/ebook.interface";
 
 const BookList = ({ books }: { books: BookInterface[] }) => {
   return (

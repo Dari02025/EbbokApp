@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFavoriteEbookStore, useFilterEbook } from "contexts/contextEbooks";
 import { Book } from "interfaces/ebook.interface";
-import ProfileImage from "components/ProfileNameToImg.component";
+import ProfileImage from "components/ProfileNameToImg";
 import { MdDeleteForever } from "react-icons/md";
 
 interface FavoritesListProps {

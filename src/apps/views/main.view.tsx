@@ -1,9 +1,9 @@
 import { useFetchEbooks } from "hooks/useEbooks";
-import BookList from "components/ListBook.component";
+import BookList from "components/ListBook";
 import PageContainerSkeleton from "components/PageContainerSkeleton";
 import { useEffect, useState } from "react";
 import FavoritesList from "components/FavoriteList";
-import Filter from "components/Filter.component";
+import Filter from "components/Filter";
 import { filterData, transformData } from "utils/mapper.utils";
 import { Book } from "interfaces/ebook.interface";
 import { Author } from "interfaces/author.interface";
