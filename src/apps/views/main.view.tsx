@@ -25,7 +25,6 @@ const MainView = () => {
   /* Load data and formating */
   useEffect(() => {
     if (!isLoading && data && data.default && data.default.library) {
-      console.log("entre a reload");
       const { ebooks, authors, pag } = transformData(
         data.default.library,
         favoriteEbookIds,
