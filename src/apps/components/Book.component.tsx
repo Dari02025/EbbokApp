@@ -49,7 +49,7 @@ const Book = ({
   return (
     <>
       {isMounted ? (
-        <div className="relative w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-4  h-200 !important">
+        <article className="relative w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-4  h-200 !important">
           <div className="relative overflow-hidden rounded-lg shadow-md h-full">
             <img
               src={imageSrc}
@@ -67,10 +67,10 @@ const Book = ({
               </h4>
               <hr className="pb-2" />
               <button
-                className=" mx-auto px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600"
+                className=" mx-auto px-2 py-1 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600"
                 onClick={toggleDescription}
               >
-                <MdOutlineRemoveRedEye className="text-xl" />
+                <MdOutlineRemoveRedEye className="text-lg" />
               </button>
               <button
                 className="float-right  text-yellow-500 hover:text-red-500 focus:outline-none"
@@ -87,7 +87,7 @@ const Book = ({
               handleClickOutside={() => setShowDescription(false)}
             />
           )}
-        </div>
+        </article>
       ) : (
         <BookSkeleton />
       )}

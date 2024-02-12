@@ -48,17 +48,18 @@ const MainView = () => {
 
   return (
     <>
-      <Filter totalPages={pages} authors={authors} />{" "}
-      <div className="flex flex-col lg:flex-row mt-8  ">
-        <div className="lg:w-48 p-4 bg-gray-200 overflow-y-auto !important lg:block hidden">
-          {" "}
+      <header>
+        <Filter totalPages={pages} authors={authors} />
+      </header>
+      <main className="flex flex-col lg:flex-row mt-8  ">
+        <aside className="lg:w-48 p-4 bg-gray-200 overflow-y-auto !important lg:block hidden">
           <FavoritesList favorites={books} />
-        </div>
-        <div className="flex-1 p-4  overflow-y-auto !important">
+        </aside>
+        <section className="flex-1 p-4  overflow-y-auto !important">
           Columna flexible
           <BookList books={booksList} key={key} />
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 };
